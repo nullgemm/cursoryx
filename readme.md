@@ -9,6 +9,7 @@ Mac OS, Windows, X11 and Wayland.
 ## Available cursors
 Windows, Mac OS and Linux cursor availability matrix
 (excluding X11 because it has everything imaginable)
+```
 |Windows       |Mac OS        |Wayland       |
 |--------------|--------------|--------------|
 |Arrow         |Arrow         |Arrow         |
@@ -39,8 +40,10 @@ Windows, Mac OS and Linux cursor availability matrix
 |Text          |Text          |Text          |
 |              |Text (Vert.)  |              |
 |              |Link          |              |
+```
 
 Cursoryx cursor and their equivalents on the target platforms.
+```
 |Cursoryx      |Windows       |Mac OS        |X11           |Wayland       |
 |--------------|--------------|--------------|--------------|--------------|
 |Arrow         |Arrow         |Arrow         |Arrow         |Arrow         |
@@ -53,6 +56,7 @@ Cursoryx cursor and their equivalents on the target platforms.
 |Size (N/S)    |Size (N/S)    |Size (N)      |Size (N/S)    |Size (N)      |
 |Size (W/E)    |Size (W/E)    |Size (W)      |Size (W/E)    |Size (W)      |
 |Text          |Text          |Text          |Text          |Text          |
+```
 
 [Windows system cursors reference](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setsystemcursor)
 [Mac OS usable cursors reference](https://developer.apple.com/documentation/appkit/nscursor)
