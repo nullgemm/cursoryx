@@ -120,7 +120,7 @@ void cursoryx_set(
 		return;
 	}
 
-	// convert to milliseconds
+	// convert to milliseconds (approx.)
 	cursoryx->time = (time.tv_sec * 1000) + ((time.tv_nsec * 67) >> 26);
 
 	// get image
