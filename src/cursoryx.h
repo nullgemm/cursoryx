@@ -9,12 +9,25 @@
 #include "xdg-shell-client-protocol.h"
 #endif
 
+#ifdef CURSORYX_X11
+#include <xcb/xcb_cursor.h>
+#endif
+
 #ifdef CURSORYX_WAYLAND
 struct cursoryx_wayland
 {
 	struct wl_compositor* compositor;
 	struct wl_pointer* pointer;
 	struct wl_shm* shm;
+};
+#endif
+
+#ifdef CURSORYX_X11
+struct cursoryx_x11
+{
+	xcb_connection_t* conn;
+	xcb_window_t window;
+	xcb_screen_t* screen;
 };
 #endif
 
@@ -36,6 +49,7 @@ enum cursoryx_cursor
 	CURSORYX_SIZE_W_E,   /*  horizontal  -  */
 
 	CURSORYX_NONE,
+	CURSORYX_COUNT,
 };
 
 struct cursoryx
@@ -53,6 +67,14 @@ struct cursoryx
 	// user-supplied
 	struct wl_pointer* pointer;
 	struct wl_shm* shm;
+#endif
+
+#ifdef CURSORYX_X11
+	enum cursoryx_cursor current;
+	xcb_cursor_context_t* context;
+	xcb_connection_t* conn;
+	xcb_window_t window;
+	xcb_screen_t* screen;
 #endif
 };
 
