@@ -30,17 +30,16 @@ static char* cursoryx_names_wayland[] =
 
 bool cursoryx_start(
 	struct cursoryx* cursoryx,
-	int cursors_size,
 	void* data)
 {
 	struct cursoryx_wayland* wayland = data;
 
-	cursoryx->size = cursors_size;
+	cursoryx->size = 32;
 
 	cursoryx->theme =
 		wl_cursor_theme_load(
 			NULL,
-			cursors_size,
+			cursoryx->size,
 			wayland->shm);
 
 	if (cursoryx->theme == NULL)
