@@ -71,5 +71,21 @@ See `cursoryx.h` for the API and
 [globox](https://github.com/cylgom/globox)
 for an implementation example.
 
+## Microstorm
+The `default` folder contains all the sources and tools required to generate
+"microstorm", a simple, flat, shadow-less cursor theme for X11 (and Wayland).
+It only provides the 11 Cursoryx cursors but comes with all the necessary
+aliases. This cursor theme was designed to look good with both gamma-aware
+and linear blending.
+
+To generate a release, simply
+```
+cd default/kit
+./build.sh
+```
+
+You can then copy the `microstorm` folder in `/usr/share/icons/`, and create
+symlinks in `/usr/share/icons/default` and `~/.local/share/icons/default`.
+
 ## Greetings
 Unlucky Morpheus for the cool music
