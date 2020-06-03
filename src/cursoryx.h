@@ -13,6 +13,10 @@
 #include <xcb/xcb_cursor.h>
 #endif
 
+#ifdef CURSORYX_WIN
+#include <windows.h>
+#endif
+
 #ifdef CURSORYX_WAYLAND
 struct cursoryx_wayland
 {
@@ -28,6 +32,13 @@ struct cursoryx_x11
 	xcb_connection_t* conn;
 	xcb_window_t window;
 	xcb_screen_t* screen;
+};
+#endif
+
+#ifdef CURSORYX_WIN
+struct cursoryx_win
+{
+	HWND handle;
 };
 #endif
 
@@ -54,10 +65,12 @@ enum cursoryx_cursor
 
 struct cursoryx
 {
+	enum cursoryx_cursor current;
+
+#ifdef CURSORYX_WAYLAND
 	uint32_t time;
 	int size;
 
-#ifdef CURSORYX_WAYLAND
 	// wayland
 	struct wl_cursor_theme* theme;
 	struct wl_surface* surface;
@@ -70,17 +83,19 @@ struct cursoryx
 #endif
 
 #ifdef CURSORYX_X11
-	enum cursoryx_cursor current;
 	xcb_cursor_context_t* context;
 	xcb_connection_t* conn;
 	xcb_window_t window;
 	xcb_screen_t* screen;
 #endif
+
+#ifdef CURSORYX_WIN
+	HWND handle;
+#endif
 };
 
 bool cursoryx_start(
 	struct cursoryx* cursoryx,
-	int cursors_size,
 	void* data);
 
 void cursoryx_set(

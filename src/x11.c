@@ -27,7 +27,6 @@ static char* cursoryx_names_x11[] =
 
 bool cursoryx_start(
 	struct cursoryx* cursoryx,
-	int cursors_size,
 	void* data)
 {
 	int ok;
