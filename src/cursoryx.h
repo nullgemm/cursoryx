@@ -17,6 +17,10 @@
 #include <windows.h>
 #endif
 
+#ifdef CURSORYX_QUARTZ
+#include <objc/runtime.h>
+#endif
+
 #ifdef CURSORYX_WAYLAND
 struct cursoryx_wayland
 {
@@ -91,6 +95,10 @@ struct cursoryx
 
 #ifdef CURSORYX_WIN
 	HWND handle;
+#endif
+
+#ifdef CURSORYX_QUARTZ
+	id current_obj;
 #endif
 };
 
