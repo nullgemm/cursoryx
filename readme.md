@@ -62,12 +62,12 @@ Cursoryx cursor and their equivalents on the target platforms.
 ```
 
 [Windows system cursors reference](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setsystemcursor)
-[Mac OS usable cursors reference](https://developer.apple.com/documentation/appkit/nscursor)
-[X11 cursors reference](https://gitlab.freedesktop.org/xorg/lib/libx11/-/blob/master/include/X11/cursorfont.h)
-[Wayland cursors reference](https://gitlab.freedesktop.org/wayland/wayland/-/blob/master/cursor/cursor-data.h)
+ | [Mac OS usable cursors reference](https://developer.apple.com/documentation/appkit/nscursor)
+ | [X11 cursors reference](https://gitlab.freedesktop.org/xorg/lib/libx11/-/blob/master/include/X11/cursorfont.h)
+ | [Wayland cursors reference](https://gitlab.freedesktop.org/wayland/wayland/-/blob/master/cursor/cursor-data.h)
 
 ## Usage
-see `cursoryx.h` for the API and
+See `cursoryx.h` for the API and
 [globox](https://github.com/cylgom/globox)
 for an implementation example.
 
