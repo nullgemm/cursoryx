@@ -8,10 +8,10 @@ Mac OS, Windows, X11 and Wayland.
 
 ## Available cursors
 Windows, Mac OS and Linux cursor availability matrix
-(excluding X11 because it has everything imaginable)
+(excluding X11 because it does not have a standard)
 ```
 |Windows       |Mac OS        |libwayland-cursors|
-|              |              |(minimal set)     |
+|(shared set)  |(AppKit set)  |(bundled mini-set)|
 |--------------|--------------|------------------|
 |Arrow         |Arrow         |Arrow             |
 |              |Arrow (Copy)  |                  |
@@ -55,9 +55,10 @@ Cursoryx cursor and their equivalents on the target platforms.
 |Size (N/S/W/E)|Size (N/S/W/E)|Hand (Closed) |Size (N/S/W/E)|Hand (Closed) |
 |Size (N-E/S-W)|Size (N-E/S-W)|Arrow         |Size (N-E/S-W)|Size (N-E)    |
 |Size (N-W/S-E)|Size (N-W/S-E)|Arrow         |Size (N-W/S-E)|Size (N-W)    |
-|Size (N/S)    |Size (N/S)    |Size (N)      |Size (N/S)    |Size (N)      |
-|Size (W/E)    |Size (W/E)    |Size (W)      |Size (W/E)    |Size (W)      |
+|Size (N/S)    |Size (N/S)    |Size (N/S)    |Size (N/S)    |Size (N)      |
+|Size (W/E)    |Size (W/E)    |Size (W/E)    |Size (W/E)    |Size (W)      |
 |Text          |Text          |Text          |Text          |Text          |
+|None          |None (Window) |None (Screen) |None (Window) |None (Window) |
 ```
 
 [Windows system cursors reference](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setsystemcursor)
@@ -66,3 +67,9 @@ Cursoryx cursor and their equivalents on the target platforms.
 [Wayland cursors reference](https://gitlab.freedesktop.org/wayland/wayland/-/blob/master/cursor/cursor-data.h)
 
 ## Usage
+see `cursoryx.h` for the API and
+[globox](https://github.com/cylgom/globox)
+for an implementation example.
+
+## Greetings
+Unlucky Morpheus for the cool music
