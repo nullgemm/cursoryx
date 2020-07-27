@@ -1,8 +1,8 @@
 # Cursoryx
 Cursoryx is a portable cursor management library. Like
-[globox](https://github.com/cylgom/globox)
+[globox](https://github.com/nullgemm/globox)
 and
-[willis](https://github.com/cylgom/willis)
+[willis](https://github.com/nullgemm/willis)
 it aims at implementing the subset of cursor-relevant features available on
 Mac OS, Windows, X11 and Wayland.
 
@@ -68,7 +68,7 @@ Cursoryx cursor and their equivalents on the target platforms.
 
 ## Usage
 See `cursoryx.h` for the API and
-[globox](https://github.com/cylgom/globox)
+[globox](https://github.com/nullgemm/globox)
 for an implementation example.
 
 ## Microstorm
