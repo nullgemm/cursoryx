@@ -78,14 +78,29 @@ It only provides the 11 Cursoryx cursors but comes with all the necessary
 aliases. This cursor theme was designed to look good with both gamma-aware
 and linear blending.
 
+### Linux
 To generate a release, simply
 ```
-cd default/kit
+cd default/linux/source/kit
 ./build.sh
 ```
 
 You can then copy the `microstorm` folder in `/usr/share/icons/`, and create
 symlinks in `/usr/share/icons/default` and `~/.local/share/icons/default`.
+
+### Windows
+To install the cursor theme under Windows, open the `default/windows` folder and
+run the batch script inside (make sure your working directory `default/windows`.
+
+The registry editor might prompt you for authorization; this is normal since
+the script automatically adds the two entries of the cursor scheme in the registry.
+
+The mouse settings window will be opened after the installation is done.
+Select the `Pointers` tab, choose the `microstorm` cursor scheme and `Apply`.
+
+### macOS
+A macOS version of the theme is available in `default/macos` for use with
+[MouseCape](https://github.com/alexzielenski/Mousecape).
 
 ## Greetings
 Unlucky Morpheus for the cool music
