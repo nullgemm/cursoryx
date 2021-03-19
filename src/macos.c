@@ -1,16 +1,13 @@
 #include "cursoryx.h"
+#include "cursoryx_macos.h"
 
+#include <CoreGraphics/CoreGraphics.h> // CGDisplayHideCursor, CGDisplayShowCursor
+#include <objc/message.h>
+#include <objc/runtime.h>
 #include <stdbool.h>
 #include <stdint.h>
 
-#include <objc/runtime.h>
-#include <objc/message.h>
-
-// CGDisplayHideCursor, CGDisplayShowCursor
-#include <CoreGraphics/CoreGraphics.h>
-
-id (*cursoryx_msg_id)(id, SEL) =
-	(id (*)(id, SEL)) objc_msgSend;
+id (*cursoryx_msg_id)(id, SEL) = (id (*)(id, SEL)) objc_msgSend;
 
 // Quartz cursor names sparse LUT
 static char* cursoryx_names_quartz[] =
@@ -57,12 +54,12 @@ void cursoryx_set(
 			CGDisplayShowCursor(kCGDirectMainDisplay);
 		}
 
-		cursoryx->current_obj = cursoryx_msg_id(
+		cursoryx->cursoryx_macos.current_obj = cursoryx_msg_id(
 			(id) objc_getClass("NSCursor"),
 			sel_getUid(cursoryx_names_quartz[cursor]));
 
 		cursoryx_msg_id(
-			cursoryx->current_obj,
+			cursoryx->cursoryx_macos.current_obj,
 			sel_getUid("set"));
 	}
 

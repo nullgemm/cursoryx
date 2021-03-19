@@ -1,11 +1,11 @@
 #define _POSIX_C_SOURCE 200809L
 
 #include "cursoryx.h"
+#include "cursoryx_x11.h"
 
 #include <stdbool.h>
 #include <stdint.h>
 #include <time.h>
-
 #include <xcb/xcb_cursor.h>
 #include <xcb/xfixes.h>
 
@@ -30,17 +30,17 @@ bool cursoryx_start(
 	void* data)
 {
 	int ok;
-	struct cursoryx_x11* x11 = data;
+	struct cursoryx_data_x11* x11 = data;
 
 	cursoryx->current = CURSORYX_COUNT;
-	cursoryx->conn = x11->conn;
-	cursoryx->window = x11->window;
-	cursoryx->screen = x11->screen;
+	cursoryx->cursoryx_x11.conn = x11->conn;
+	cursoryx->cursoryx_x11.window = x11->window;
+	cursoryx->cursoryx_x11.screen = x11->screen;
 
 	ok = xcb_cursor_context_new(
-		x11->conn,
-		x11->screen,
-		&(cursoryx->context));
+		cursoryx->cursoryx_x11.conn,
+		cursoryx->cursoryx_x11.screen,
+		&(cursoryx->cursoryx_x11.context));
 
 	if (ok < 0)
 	{
@@ -62,36 +62,36 @@ void cursoryx_set(
 	if (cursor == CURSORYX_NONE)
 	{
 		xcb_xfixes_query_version(
-			cursoryx->conn,
+			cursoryx->cursoryx_x11.conn,
 			4,
 			0);
 
 		xcb_xfixes_hide_cursor(
-			cursoryx->conn,
-			cursoryx->window);
+			cursoryx->cursoryx_x11.conn,
+			cursoryx->cursoryx_x11.window);
 	}
 	else
 	{
 		if (cursoryx->current == CURSORYX_NONE)
 		{
 			xcb_xfixes_show_cursor(
-				cursoryx->conn,
-				cursoryx->window);
+				cursoryx->cursoryx_x11.conn,
+				cursoryx->cursoryx_x11.window);
 		}
 
 		xcb_cursor_t id =
 			xcb_cursor_load_cursor(
-				cursoryx->context,
+				cursoryx->cursoryx_x11.context,
 				cursoryx_names_x11[cursor]);
 
 		xcb_change_window_attributes(
-			cursoryx->conn,
-			cursoryx->window,
+			cursoryx->cursoryx_x11.conn,
+			cursoryx->cursoryx_x11.window,
 			XCB_CW_CURSOR,
 			&id);
 
 		xcb_free_cursor(
-			cursoryx->conn,
+			cursoryx->cursoryx_x11.conn,
 			id);
 	}
 
@@ -101,5 +101,5 @@ void cursoryx_set(
 void cursoryx_stop(
 	struct cursoryx* cursoryx)
 {
-	xcb_cursor_context_free(cursoryx->context);
+	xcb_cursor_context_free(cursoryx->cursoryx_x11.context);
 }

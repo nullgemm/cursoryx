@@ -1,49 +1,16 @@
-#ifndef CURSORYX_H
-#define CURSORYX_H
+#ifndef H_CURSORYX
+#define H_CURSORYX
 
 #include <stdbool.h>
-#include <stdint.h>
 
-#ifdef CURSORYX_WAYLAND
-#include <wayland-client.h>
-#include "xdg-shell-client-protocol.h"
-#endif
-
-#ifdef CURSORYX_X11
-#include <xcb/xcb_cursor.h>
-#endif
-
-#ifdef CURSORYX_WIN
-#include <windows.h>
-#endif
-
-#ifdef CURSORYX_QUARTZ
-#include <objc/runtime.h>
-#endif
-
-#ifdef CURSORYX_WAYLAND
-struct cursoryx_wayland
-{
-	struct wl_compositor* compositor;
-	struct wl_pointer* pointer;
-	struct wl_shm* shm;
-};
-#endif
-
-#ifdef CURSORYX_X11
-struct cursoryx_x11
-{
-	xcb_connection_t* conn;
-	xcb_window_t window;
-	xcb_screen_t* screen;
-};
-#endif
-
-#ifdef CURSORYX_WIN
-struct cursoryx_win
-{
-	HWND handle;
-};
+#if defined(CURSORYX_X11)
+	#include "cursoryx_x11.h"
+#elif defined(CURSORYX_WAYLAND)
+	#include "cursoryx_wayland.h"
+#elif defined(CURSORYX_WINDOWS)
+	#include "cursoryx_windows.h"
+#elif defined(CURSORYX_MACOS)
+	#include "cursoryx_macos.h"
 #endif
 
 enum cursoryx_cursor
@@ -71,46 +38,19 @@ struct cursoryx
 {
 	enum cursoryx_cursor current;
 
-#ifdef CURSORYX_WAYLAND
-	uint32_t time;
-	int size;
-
-	// wayland
-	struct wl_cursor_theme* theme;
-	struct wl_surface* surface;
-	struct wl_cursor* cursor;
-	struct wl_buffer* buffer;
-
-	// user-supplied
-	struct wl_pointer* pointer;
-	struct wl_shm* shm;
-#endif
-
-#ifdef CURSORYX_X11
-	xcb_cursor_context_t* context;
-	xcb_connection_t* conn;
-	xcb_window_t window;
-	xcb_screen_t* screen;
-#endif
-
-#ifdef CURSORYX_WIN
-	HWND handle;
-#endif
-
-#ifdef CURSORYX_QUARTZ
-	id current_obj;
-#endif
+	#if defined(CURSORYX_X11)
+	struct cursoryx_x11 cursoryx_x11;
+	#elif defined(CURSORYX_WAYLAND)
+	struct cursoryx_wayland cursoryx_wayland;
+	#elif defined(CURSORYX_WINDOWS)
+	struct cursoryx_windows cursoryx_windows;
+	#elif defined(CURSORYX_MACOS)
+	struct cursoryx_macos cursoryx_macos;
+	#endif
 };
 
-bool cursoryx_start(
-	struct cursoryx* cursoryx,
-	void* data);
-
-void cursoryx_set(
-	struct cursoryx* cursoryx,
-	enum cursoryx_cursor cursor);
-
-void cursoryx_stop(
-	struct cursoryx* cursoryx);
+bool cursoryx_start(struct cursoryx* cursoryx, void* data);
+void cursoryx_set(struct cursoryx* cursoryx, enum cursoryx_cursor cursor);
+void cursoryx_stop(struct cursoryx* cursoryx);
 
 #endif

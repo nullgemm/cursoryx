@@ -1,10 +1,10 @@
 #define _POSIX_C_SOURCE 200809L
 
 #include "cursoryx.h"
+#include "cursoryx_windows.h"
 
 #include <stdbool.h>
 #include <stdint.h>
-
 #include <windows.h>
 
 // Windows cursor names sparse LUT
@@ -34,9 +34,9 @@ bool cursoryx_start(
 	struct cursoryx* cursoryx,
 	void* data)
 {
-	struct cursoryx_win* win = data;
+	struct cursoryx_data_windows* win = data;
 
-	cursoryx->handle = win->handle;
+	cursoryx->cursoryx_windows.handle = win->handle;
 	cursoryx->current = CURSORYX_COUNT;
 
 	return true;
@@ -70,7 +70,7 @@ void cursoryx_set(
 				cursoryx_names_win[cursor]);
 
 		SetClassLong(
-			cursoryx->handle,
+			cursoryx->cursoryx_windows.handle,
 			GCLP_HCURSOR,
 			new.integer);
 	}

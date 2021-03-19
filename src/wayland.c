@@ -1,14 +1,14 @@
 #define _POSIX_C_SOURCE 200809L
 
 #include "cursoryx.h"
+#include "cursoryx_wayland.h"
+#include "xdg-shell-client-protocol.h"
 
 #include <stdbool.h>
 #include <stdint.h>
 #include <time.h>
-
 #include <wayland-client.h>
 #include <wayland-cursor.h>
-#include "xdg-shell-client-protocol.h"
 
 // X cursor names sparse LUT for wayland
 // we can't reuse X11's LUT because we try to use the default theme provided
@@ -32,47 +32,47 @@ bool cursoryx_start(
 	struct cursoryx* cursoryx,
 	void* data)
 {
-	struct cursoryx_wayland* wayland = data;
+	struct cursoryx_data_wayland* wayland = data;
 
-	cursoryx->size = 32;
+	cursoryx->cursoryx_wayland.size = 32;
 
-	cursoryx->theme =
+	cursoryx->cursoryx_wayland.theme =
 		wl_cursor_theme_load(
 			NULL,
-			cursoryx->size,
+			cursoryx->cursoryx_wayland.size,
 			wayland->shm);
 
-	if (cursoryx->theme == NULL)
+	if (cursoryx->cursoryx_wayland.theme == NULL)
 	{
 		return false;
 	}
 
-	cursoryx->cursor =
+	cursoryx->cursoryx_wayland.cursor =
 		wl_cursor_theme_get_cursor(
-			cursoryx->theme,
+			cursoryx->cursoryx_wayland.theme,
 			"left_ptr");
 
-	if (cursoryx->cursor == NULL)
+	if (cursoryx->cursoryx_wayland.cursor == NULL)
 	{
-		wl_cursor_theme_destroy(cursoryx->theme);
+		wl_cursor_theme_destroy(cursoryx->cursoryx_wayland.theme);
 
 		return false;
 	}
 
-	cursoryx->surface = wl_compositor_create_surface(wayland->compositor);
+	cursoryx->cursoryx_wayland.surface = wl_compositor_create_surface(wayland->compositor);
 
-	if (cursoryx->surface == NULL)
+	if (cursoryx->cursoryx_wayland.surface == NULL)
 	{
-		wl_cursor_theme_destroy(cursoryx->theme);
+		wl_cursor_theme_destroy(cursoryx->cursoryx_wayland.theme);
 
 		return false;
 	}
 
-	cursoryx->pointer = wayland->pointer;
+	cursoryx->cursoryx_wayland.pointer = wayland->pointer;
 
-	if (cursoryx->pointer == NULL)
+	if (cursoryx->cursoryx_wayland.pointer == NULL)
 	{
-		wl_cursor_theme_destroy(cursoryx->theme);
+		wl_cursor_theme_destroy(cursoryx->cursoryx_wayland.theme);
 
 		return false;
 	}
@@ -86,15 +86,15 @@ void cursoryx_set(
 {
 	if (cursor != CURSORYX_NONE)
 	{
-		cursoryx->cursor =
+		cursoryx->cursoryx_wayland.cursor =
 			wl_cursor_theme_get_cursor(
-				cursoryx->theme,
+				cursoryx->cursoryx_wayland.theme,
 				cursoryx_names_wayland[cursor]);
 	}
 	else
 	{
 		wl_pointer_set_cursor(
-			cursoryx->pointer,
+			cursoryx->cursoryx_wayland.pointer,
 			0,
 			NULL,
 			0,
@@ -103,8 +103,8 @@ void cursoryx_set(
 		return;
 	}
 	
-	if ((cursoryx->cursor == NULL)
-		|| (cursoryx->cursor->image_count < 1))
+	if ((cursoryx->cursoryx_wayland.cursor == NULL)
+		|| (cursoryx->cursoryx_wayland.cursor->image_count < 1))
 	{
 		return;
 	}
@@ -120,36 +120,36 @@ void cursoryx_set(
 	}
 
 	// convert to milliseconds (approx.)
-	cursoryx->time = (time.tv_sec * 1000) + ((time.tv_nsec * 67) >> 26);
+	cursoryx->cursoryx_wayland.time = (time.tv_sec * 1000) + ((time.tv_nsec * 67) >> 26);
 
 	// get image
-	unsigned int frame = wl_cursor_frame(cursoryx->cursor, cursoryx->time);
+	unsigned int frame = wl_cursor_frame(cursoryx->cursoryx_wayland.cursor, cursoryx->cursoryx_wayland.time);
 
-	cursoryx->buffer =
+	cursoryx->cursoryx_wayland.buffer =
 		wl_cursor_image_get_buffer(
-			cursoryx->cursor->images[frame]);
+			cursoryx->cursoryx_wayland.cursor->images[frame]);
 
-	if (cursoryx->buffer == NULL)
+	if (cursoryx->cursoryx_wayland.buffer == NULL)
 	{
 		return;
 	}
 
 	// set cursor
 	wl_pointer_set_cursor(
-		cursoryx->pointer,
+		cursoryx->cursoryx_wayland.pointer,
 		0,
-		cursoryx->surface,
-		cursoryx->cursor->images[frame]->hotspot_x,
-		cursoryx->cursor->images[frame]->hotspot_y);
+		cursoryx->cursoryx_wayland.surface,
+		cursoryx->cursoryx_wayland.cursor->images[frame]->hotspot_x,
+		cursoryx->cursoryx_wayland.cursor->images[frame]->hotspot_y);
 
-	wl_surface_attach(cursoryx->surface, cursoryx->buffer, 0, 0);
-	wl_surface_damage(cursoryx->surface, 0, 0, cursoryx->size, cursoryx->size);
-	wl_surface_commit(cursoryx->surface);
+	wl_surface_attach(cursoryx->cursoryx_wayland.surface, cursoryx->cursoryx_wayland.buffer, 0, 0);
+	wl_surface_damage(cursoryx->cursoryx_wayland.surface, 0, 0, cursoryx->cursoryx_wayland.size, cursoryx->cursoryx_wayland.size);
+	wl_surface_commit(cursoryx->cursoryx_wayland.surface);
 }
 
 void cursoryx_stop(
 	struct cursoryx* cursoryx)
 {
-	wl_cursor_theme_destroy(cursoryx->theme);
-	wl_surface_destroy(cursoryx->surface);
+	wl_cursor_theme_destroy(cursoryx->cursoryx_wayland.theme);
+	wl_surface_destroy(cursoryx->cursoryx_wayland.surface);
 }
