@@ -21,8 +21,8 @@ static char* cursoryx_names_x11[] =
 	[CURSORYX_SIZE_ALL]   = "all-scroll",
 	[CURSORYX_SIZE_NE_SW] = "nesw-resize",
 	[CURSORYX_SIZE_NW_SE] = "nwse-resize",
-	[CURSORYX_SIZE_N_S]   = "col-resize",
-	[CURSORYX_SIZE_W_E]   = "row-resize",
+	[CURSORYX_SIZE_N_S]   = "row-resize",
+	[CURSORYX_SIZE_W_E]   = "col-resize",
 };
 
 bool cursoryx_start(
