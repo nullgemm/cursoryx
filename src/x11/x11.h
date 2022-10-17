@@ -2,6 +2,7 @@
 #define H_CURSORYX_X11_PRIVATE
 
 #include "cursoryx.h"
+#include "common/cursoryx_error.h"
 
 #include <xcb/xcb.h>
 #include <xcb/xcb_cursor.h>
@@ -15,20 +16,25 @@ struct x11_backend
 };
 
 void cursoryx_x11_init(
-	struct cursoryx* context);
+	struct cursoryx* context,
+	struct cursoryx_error_info* error);
 
 void cursoryx_x11_start(
 	struct cursoryx* context,
-	void* data);
+	void* data,
+	struct cursoryx_error_info* error);
 
 void cursoryx_x11_set(
 	struct cursoryx* context,
-	enum cursoryx_cursor cursor);
+	enum cursoryx_cursor cursor,
+	struct cursoryx_error_info* error);
 
 void cursoryx_x11_stop(
-	struct cursoryx* context);
+	struct cursoryx* context,
+	struct cursoryx_error_info* error);
 
 void cursoryx_x11_clean(
-	struct cursoryx* context);
+	struct cursoryx* context,
+	struct cursoryx_error_info* error);
 
 #endif

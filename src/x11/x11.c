@@ -24,12 +24,14 @@ static char* cursoryx_names_x11[] =
 };
 
 void cursoryx_x11_init(
-	struct cursoryx* context)
+	struct cursoryx* context,
+	struct cursoryx_error_info* error)
 {
 	struct x11_backend* backend = malloc(sizeof (struct x11_backend));
 
 	if (backend == NULL)
 	{
+		cursoryx_error_throw(context, error, CURSORYX_ERROR_ALLOC);
 		return;
 	}
 
@@ -38,12 +40,13 @@ void cursoryx_x11_init(
 
 	context->backend_data = backend;
 
-	return;
+	cursoryx_error_ok(error);
 }
 
 void cursoryx_x11_start(
 	struct cursoryx* context,
-	void* data)
+	void* data,
+	struct cursoryx_error_info* error)
 {
 	struct x11_backend* backend = context->backend_data;
 	struct cursoryx_x11_data* window_data = data;
@@ -53,22 +56,24 @@ void cursoryx_x11_start(
 	backend->window = window_data->window;
 	backend->screen = window_data->screen;
 
-	int error = xcb_cursor_context_new(
+	int error_xcb = xcb_cursor_context_new(
 		backend->conn,
 		backend->screen,
 		&(backend->cursor));
 
-	if (error < 0)
+	if (error_xcb < 0)
 	{
+		cursoryx_error_throw(context, error, CURSORYX_ERROR_X11_CREATE_CURSOR);
 		return;
 	}
 
-	return;
+	cursoryx_error_ok(error);
 }
 
 void cursoryx_x11_set(
 	struct cursoryx* context,
-	enum cursoryx_cursor cursor)
+	enum cursoryx_cursor cursor,
+	struct cursoryx_error_info* error)
 {
 	struct x11_backend* backend = context->backend_data;
 
@@ -114,22 +119,28 @@ void cursoryx_x11_set(
 	}
 
 	context->cursor = cursor;
+
+	cursoryx_error_ok(error);
 }
 
 void cursoryx_x11_stop(
-	struct cursoryx* context)
+	struct cursoryx* context,
+	struct cursoryx_error_info* error)
 {
 	struct x11_backend* backend = context->backend_data;
 
 	xcb_cursor_context_free(backend->cursor);
+	cursoryx_error_ok(error);
 }
 
 void cursoryx_x11_clean(
-	struct cursoryx* context)
+	struct cursoryx* context,
+	struct cursoryx_error_info* error)
 {
 	struct x11_backend* backend = context->backend_data;
 
 	free(backend);
+	cursoryx_error_ok(error);
 }
 
 void cursoryx_prepare_init_x11(
