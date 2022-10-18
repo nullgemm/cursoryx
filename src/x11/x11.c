@@ -151,4 +151,5 @@ void cursoryx_prepare_init_x11(
 	config->start = cursoryx_x11_start;
 	config->set = cursoryx_x11_set;
 	config->stop = cursoryx_x11_stop;
+	config->clean = cursoryx_x11_clean;
 }
