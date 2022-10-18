@@ -7,7 +7,7 @@
 struct cursoryx
 {
 	enum cursoryx_cursor cursor;
-	char** error_messages;
+	char* error_messages[CURSORYX_ERROR_COUNT];
 	void* backend_data;
 	struct cursoryx_config_backend backend_callbacks;
 };
