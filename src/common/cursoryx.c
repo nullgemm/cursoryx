@@ -43,6 +43,30 @@ void cursoryx_set(
 	context->backend_callbacks.set(context, cursor, error);
 }
 
+void cursoryx_custom_set(
+	struct cursoryx* context,
+	struct cursoryx_custom* custom,
+	struct cursoryx_error_info* error)
+{
+	context->backend_callbacks.custom_set(context, custom, error);
+}
+
+struct cursoryx_custom* cursoryx_custom_create(
+	struct cursoryx* context,
+	struct cursoryx_custom_config* config,
+	struct cursoryx_error_info* error)
+{
+	return context->backend_callbacks.custom_create(context, config, error);
+}
+
+void cursoryx_custom_destroy(
+	struct cursoryx* context,
+	struct cursoryx_custom* custom,
+	struct cursoryx_error_info* error)
+{
+	context->backend_callbacks.custom_destroy(context, custom, error);
+}
+
 void cursoryx_stop(
 	struct cursoryx* context,
 	struct cursoryx_error_info* error)

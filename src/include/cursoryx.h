@@ -1,7 +1,11 @@
 #ifndef H_CURSORYX
 #define H_CURSORYX
 
+#include <stdint.h>
+#include <stddef.h>
+
 struct cursoryx;
+struct cursoryx_custom;
 
 enum cursoryx_cursor
 {
@@ -33,7 +37,18 @@ enum cursoryx_error
 	CURSORYX_ERROR_DOMAIN,
 	CURSORYX_ERROR_FD,
 
-	CURSORYX_ERROR_X11_CREATE_CURSOR,
+	CURSORYX_ERROR_X11_CURSOR_CREATE,
+	CURSORYX_ERROR_X11_CURSOR_DESTROY,
+	CURSORYX_ERROR_X11_CURSOR_SET,
+	CURSORYX_ERROR_X11_PIXMAP_CREATE,
+	CURSORYX_ERROR_X11_GC_CREATE,
+	CURSORYX_ERROR_X11_IMG_CREATE,
+	CURSORYX_ERROR_X11_IMG_PUT,
+	CURSORYX_ERROR_X11_FORMATS_GET,
+	CURSORYX_ERROR_X11_FORMATS_STANDARD,
+	CURSORYX_ERROR_X11_PICTURE_CREATE,
+	CURSORYX_ERROR_X11_CUSTOM_CREATE,
+	CURSORYX_ERROR_X11_CUSTOM_DESTROY,
 
 	CURSORYX_ERROR_COUNT,
 };
@@ -43,6 +58,15 @@ struct cursoryx_error_info
 	enum cursoryx_error code;
 	const char* file;
 	unsigned line;
+};
+
+struct cursoryx_custom_config
+{
+	uint32_t* image;
+	size_t width;
+	size_t height;
+	size_t x;
+	size_t y;
 };
 
 struct cursoryx_config_backend
@@ -61,6 +85,21 @@ struct cursoryx_config_backend
 	void (*set)(
 		struct cursoryx* context,
 		enum cursoryx_cursor cursor,
+		struct cursoryx_error_info* error);
+
+	void (*custom_set)(
+		struct cursoryx* context,
+		struct cursoryx_custom* custom,
+		struct cursoryx_error_info* error);
+
+	struct cursoryx_custom* (*custom_create)(
+		struct cursoryx* context,
+		struct cursoryx_custom_config* config,
+		struct cursoryx_error_info* error);
+
+	void (*custom_destroy)(
+		struct cursoryx* context,
+		struct cursoryx_custom* custom,
 		struct cursoryx_error_info* error);
 
 	void (*stop)(
@@ -84,6 +123,21 @@ void cursoryx_start(
 void cursoryx_set(
 	struct cursoryx* context,
 	enum cursoryx_cursor cursor,
+	struct cursoryx_error_info* error);
+
+void cursoryx_custom_set(
+	struct cursoryx* context,
+	struct cursoryx_custom* custom,
+	struct cursoryx_error_info* error);
+
+struct cursoryx_custom* cursoryx_custom_create(
+	struct cursoryx* context,
+	struct cursoryx_custom_config* config,
+	struct cursoryx_error_info* error);
+
+void cursoryx_custom_destroy(
+	struct cursoryx* context,
+	struct cursoryx_custom* custom,
 	struct cursoryx_error_info* error);
 
 void cursoryx_stop(

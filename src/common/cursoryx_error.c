@@ -31,8 +31,30 @@ void cursoryx_error_init(
 	log[CURSORYX_ERROR_FD] =
 		"invalid file descriptor";
 
-	log[CURSORYX_ERROR_X11_CREATE_CURSOR] =
+	log[CURSORYX_ERROR_X11_CURSOR_CREATE] =
 		"could not create X11 cursor";
+	log[CURSORYX_ERROR_X11_CURSOR_DESTROY] =
+		"could not destroy X11 cursor";
+	log[CURSORYX_ERROR_X11_CURSOR_SET] =
+		"could not set X11 cursor";
+	log[CURSORYX_ERROR_X11_PIXMAP_CREATE] =
+		"could not create X11 pixmap";
+	log[CURSORYX_ERROR_X11_GC_CREATE] =
+		"could not create X11 pixmap graphics context";
+	log[CURSORYX_ERROR_X11_IMG_CREATE] =
+		"could not create X11 image";
+	log[CURSORYX_ERROR_X11_IMG_PUT] =
+		"could not prepare X11 image";
+	log[CURSORYX_ERROR_X11_FORMATS_GET] =
+		"could not get X11 formats";
+	log[CURSORYX_ERROR_X11_FORMATS_STANDARD] =
+		"could not get standard X11 format";
+	log[CURSORYX_ERROR_X11_PICTURE_CREATE] =
+		"could not create X11 picture";
+	log[CURSORYX_ERROR_X11_CUSTOM_CREATE] =
+		"could not create custom X11 cursor";
+	log[CURSORYX_ERROR_X11_CUSTOM_DESTROY] =
+		"could not destroy custom X11 cursor";
 #endif
 }
 
