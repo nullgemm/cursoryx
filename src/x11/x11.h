@@ -1,5 +1,5 @@
-#ifndef H_CURSORYX_X11_PRIVATE
-#define H_CURSORYX_X11_PRIVATE
+#ifndef H_CURSORYX_INTERNAL_X11
+#define H_CURSORYX_INTERNAL_X11
 
 #include "cursoryx.h"
 #include "common/cursoryx_error.h"
