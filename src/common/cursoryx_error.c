@@ -55,6 +55,9 @@ void cursoryx_error_init(
 		"could not create custom X11 cursor";
 	log[CURSORYX_ERROR_X11_CUSTOM_DESTROY] =
 		"could not destroy custom X11 cursor";
+
+	log[CURSORYX_ERROR_MACOS_OBJ_NIL] =
+		"could not get a valid objective-c object";
 #endif
 }
 
