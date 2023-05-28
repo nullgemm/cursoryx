@@ -6,11 +6,13 @@
 
 #include <stdbool.h>
 
-#include <Appkit/Appkit.h>
+#import <Appkit/Appkit.h>
 
 struct appkit_backend
 {
-	void* data;
+	Class nscursoryx_class;
+	long long type;
+	id current;
 };
 
 struct appkit_custom_backend

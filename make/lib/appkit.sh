@@ -39,6 +39,7 @@ flags+=("-fdiagnostics-color=always")
 ldflags+=("-framework AppKit")
 ldflags+=("-framework QuartzCore")
 
+#defined+=("-DCURSORYX_APPKIT_DISABLE_HACKS")
 #defines+=("-DCURSORYX_ERROR_ABORT")
 #defines+=("-DCURSORYX_ERROR_SKIP")
 defines+=("-DCURSORYX_ERROR_LOG_DEBUG")
@@ -141,6 +142,7 @@ esac
 # backend
 ninja_file=lib_appkit.ninja
 src+=("src/appkit/macos.m")
+src+=("src/appkit/macos_helpers.m")
 
 # default target
 default+=("\$folder_library/\$name.a")

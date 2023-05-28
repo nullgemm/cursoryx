@@ -2,63 +2,19 @@
 #include "common/cursoryx_private.h"
 #include "include/cursoryx_appkit.h"
 #include "appkit/macos.h"
+#include "appkit/macos_helpers.h"
 
 #include <stdlib.h>
 
-#include <Appkit/Appkit.h>
-#include <CoreGraphics/CoreGraphics.h> // CGDisplayHideCursor, CGDisplayShowCursor
+#import <Appkit/Appkit.h>
+#import <CoreGraphics/CoreGraphics.h> // CGDisplayHideCursor, CGDisplayShowCursor
 
-// https://opensource.apple.com/source/WebCore/WebCore-7611.3.10.1.3/PAL/pal/spi/mac/HIServicesSPI.h.auto.html
-enum appkit_cursors
-{
-	kCoreCursorFirstCursor = 0,
-	kCoreCursorArrow = kCoreCursorFirstCursor,
-	kCoreCursorIBeam,
-	kCoreCursorMakeAlias,
-	kCoreCursorNotAllowed,
-	kCoreCursorBusyButClickable,
-	kCoreCursorCopy,
-	kCoreCursorScreenShotSelection = 7,
-	kCoreCursorScreenShotSelectionToClip,
-	kCoreCursorScreenShotWindow,
-	kCoreCursorScreenShotWindowToClip,
-	kCoreCursorClosedHand,
-	kCoreCursorOpenHand,
-	kCoreCursorPointingHand,
-	kCoreCursorCountingUpHand,
-	kCoreCursorCountingDownHand,
-	kCoreCursorCountingUpAndDownHand,
-	kCoreCursorResizeLeft,
-	kCoreCursorResizeRight,
-	kCoreCursorResizeLeftRight,
-	kCoreCursorCross,
-	kCoreCursorResizeUp,
-	kCoreCursorResizeDown,
-	kCoreCursorResizeUpDown,
-	kCoreCursorContextualMenu,
-	kCoreCursorPoof,
-	kCoreCursorIBeamVertical,
-	kCoreCursorWindowResizeEast,
-	kCoreCursorWindowResizeEastWest,
-	kCoreCursorWindowResizeNorthEast,
-	kCoreCursorWindowResizeNorthEastSouthWest,
-	kCoreCursorWindowResizeNorth,
-	kCoreCursorWindowResizeNorthSouth,
-	kCoreCursorWindowResizeNorthWest,
-	kCoreCursorWindowResizeNorthWestSouthEast,
-	kCoreCursorWindowResizeSouthEast,
-	kCoreCursorWindowResizeSouth,
-	kCoreCursorWindowResizeSouthWest,
-	kCoreCursorWindowResizeWest,
-	kCoreCursorWindowMove,
-	kCoreCursorHelp,
-	kCoreCursorCell,
-	kCoreCursorZoomIn,
-	kCoreCursorZoomOut,
-	kCoreCursorLastCursor = kCoreCursorZoomOut,
-};
-
-static char* cursoryx_names_appkit[] =
+// Here is the Cursoryx to AppKit public cursors conversion table.
+// It is not in use by default, since we currently rely on a hack and use
+// Apple's private system cursors to provide a more complete set to the user.
+// To disable this hack and use only public cursors, define the contant below.
+#ifdef CURSORYX_APPKIT_DISABLE_HACKS
+static char* cursoryx_appkit_public[] =
 {
 	[CURSORYX_ARROW]      = "arrowCursor",
 	[CURSORYX_HAND]       = "pointingHandCursor",
@@ -72,14 +28,6 @@ static char* cursoryx_names_appkit[] =
 	[CURSORYX_SIZE_N_S]   = "resizeUpDownCursor",
 	[CURSORYX_SIZE_W_E]   = "resizeLeftRightCursor",
 };
-
-#if 0
-@interface NSCursor()
-{
-    @public
-	long long _coreCursorType;
-}
-@end
 #endif
 
 void cursoryx_appkit_init(
@@ -98,6 +46,10 @@ void cursoryx_appkit_init(
 	*backend = zero;
 
 	context->backend_data = backend;
+
+#ifndef CURSORYX_APPKIT_DISABLE_HACKS
+	appkit_helpers_private_init(context, error);
+#endif
 
 	// the backend is responsible for the custom cursor list
 	// so we must set the beginning pointer to NULL here
@@ -125,25 +77,30 @@ void cursoryx_appkit_set(
 {
 	struct appkit_backend* backend = context->backend_data;
 
-	if (context->cursor == cursor)
+	switch (cursor)
 	{
-		return;
-	}
-
-	if (cursor == CURSORYX_NONE)
-	{
-		CGDisplayHideCursor(kCGDirectMainDisplay);
-	}
-	else
-	{
-		if (context->cursor == CURSORYX_NONE)
+		case CURSORYX_NONE:
 		{
-			CGDisplayShowCursor(kCGDirectMainDisplay);
+			CGDisplayHideCursor(kCGDirectMainDisplay);
+			break;
 		}
+		default:
+		{
+			if (context->cursor == CURSORYX_NONE)
+			{
+				CGDisplayShowCursor(kCGDirectMainDisplay);
+			}
 
-		SEL selector = sel_registerName(cursoryx_names_appkit[cursor]);
-		NSCursor* cursor = [NSCursor performSelector:selector];
-		[cursor set];
+#ifdef CURSORYX_APPKIT_DISABLE_HACKS
+			SEL selector = sel_registerName(cursoryx_appkit_public[cursor]);
+			NSCursor* nscursor = [NSCursor performSelector:selector];
+			[nscursor set];
+#else
+			appkit_helpers_private_set(context, cursor, error);
+#endif
+
+			break;
+		}
 	}
 
 	context->cursor = cursor;
