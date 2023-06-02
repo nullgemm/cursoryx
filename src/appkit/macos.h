@@ -6,7 +6,7 @@
 
 #include <stdbool.h>
 
-#import <Appkit/Appkit.h>
+#import <AppKit/AppKit.h>
 
 struct appkit_backend
 {

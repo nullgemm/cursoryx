@@ -6,7 +6,7 @@
 
 #include <stdlib.h>
 
-#import <Appkit/Appkit.h>
+#import <AppKit/AppKit.h>
 #import <CoreGraphics/CoreGraphics.h> // CGDisplayHideCursor, CGDisplayShowCursor
 
 // Here is the Cursoryx to AppKit public cursors conversion table.
