@@ -20,7 +20,7 @@ folder_objects="\$builddir/obj"
 folder_cursoryx="cursoryx_bin_$tag"
 folder_library="\$folder_cursoryx/lib/cursoryx"
 folder_include="\$folder_cursoryx/include"
-name="cursoryx"
+name="cursoryx_elf"
 cc="gcc"
 ar="ar"
 
