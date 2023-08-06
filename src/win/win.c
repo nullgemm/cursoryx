@@ -107,21 +107,7 @@ void cursoryx_win_set(
 			return;
 		}
 
-		DWORD ok =
-			SetClassLongPtrW(
-				win,
-				GCLP_HCURSOR,
-				win_cursor.integer);
-
-		if (ok == 0)
-		{
-			cursoryx_error_throw(
-				context,
-				error,
-				CURSORYX_ERROR_WIN_CURSOR_SET);
-
-			return;
-		}
+		SetCursor(win_cursor.handle);
 	}
 
 	context->cursor = cursor;
@@ -149,21 +135,7 @@ void cursoryx_win_custom_set(
 		return;
 	}
 
-	DWORD ok =
-		SetClassLongPtrW(
-			win,
-			GCLP_HCURSOR,
-			custom_backend->cursor.integer);
-
-	if (ok == 0)
-	{
-		cursoryx_error_throw(
-			context,
-			error,
-			CURSORYX_ERROR_WIN_CURSOR_SET);
-
-		return;
-	}
+	SetCursor(custom_backend->cursor.handle);
 
 	context->cursor = CURSORYX_COUNT;
 

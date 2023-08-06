@@ -58,8 +58,6 @@ void cursoryx_error_init(
 
 	log[CURSORYX_ERROR_WIN_CURSOR_LOAD] =
 		"could not load win32 cursor";
-	log[CURSORYX_ERROR_WIN_CURSOR_SET] =
-		"could not set win32 cursor";
 	log[CURSORYX_ERROR_WIN_BMP_MASK_CREATE] =
 		"could not create win32 bitmap mask";
 	log[CURSORYX_ERROR_WIN_BMP_COLOR_CREATE] =
