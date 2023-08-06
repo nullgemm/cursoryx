@@ -56,6 +56,19 @@ void cursoryx_error_init(
 	log[CURSORYX_ERROR_X11_CUSTOM_DESTROY] =
 		"could not destroy custom X11 cursor";
 
+	log[CURSORYX_ERROR_WIN_CURSOR_LOAD] =
+		"could not load win32 cursor";
+	log[CURSORYX_ERROR_WIN_CURSOR_SET] =
+		"could not set win32 cursor";
+	log[CURSORYX_ERROR_WIN_BMP_MASK_CREATE] =
+		"could not create win32 bitmap mask";
+	log[CURSORYX_ERROR_WIN_BMP_COLOR_CREATE] =
+		"could not create win32 bitmap color";
+	log[CURSORYX_ERROR_WIN_ICON_CREATE] =
+		"could not create win32 cursor";
+	log[CURSORYX_ERROR_WIN_OBJECT_DELETE] =
+		"could not delete win32 object";
+
 	log[CURSORYX_ERROR_MACOS_OBJ_NIL] =
 		"could not get a valid objective-c object";
 #endif

@@ -117,6 +117,8 @@ void cursoryx_appkit_custom_set(
 
 	[custom_backend->cursor set];
 
+	context->cursor = CURSORYX_COUNT;
+
 	cursoryx_error_ok(error);
 }
 

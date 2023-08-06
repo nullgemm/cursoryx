@@ -241,6 +241,8 @@ void cursoryx_x11_custom_set(
 			CURSORYX_ERROR_X11_CURSOR_SET);
 	}
 
+	context->cursor = CURSORYX_COUNT;
+
 	cursoryx_error_ok(error);
 }
 

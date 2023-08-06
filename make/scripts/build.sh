@@ -16,7 +16,7 @@ if [ -z "$build_type" ]; then
 fi
 
 if [ -z "$build_backend" ]; then
-	build_backend=appkit
+	build_backend=win
 fi
 
 if [ -z "$build_toolchain" ]; then
@@ -35,6 +35,12 @@ case $build_backend in
 		rm -rf build make/output
 		./make/lib/macho.sh $build_type $build_toolchain
 		./make/lib/appkit.sh $build_type $build_toolchain
+	;;
+
+	win)
+		rm -rf build make/output
+		./make/lib/pe.sh $build_type
+		./make/lib/win.sh $build_type
 	;;
 
 	*)
@@ -59,6 +65,14 @@ case $build_backend in
 
 		samu -f ./make/output/lib_macho.ninja headers
 		samu -f ./make/output/lib_appkit.ninja headers
+	;;
+
+	win)
+		samu -f ./make/output/lib_pe.ninja
+		samu -f ./make/output/lib_win.ninja
+
+		samu -f ./make/output/lib_pe.ninja headers
+		samu -f ./make/output/lib_win.ninja headers
 	;;
 
 	*)
