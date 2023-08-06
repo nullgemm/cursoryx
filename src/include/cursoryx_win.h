@@ -7,8 +7,7 @@
 
 struct cursoryx_win_data
 {
-	HWND win;
-	HDC device_context;
+	void* data;
 };
 
 void cursoryx_prepare_init_win(

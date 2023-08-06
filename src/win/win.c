@@ -54,9 +54,6 @@ void cursoryx_win_start(
 	struct win_backend* backend = context->backend_data;
 	struct cursoryx_win_data* window_data = data;
 
-	backend->win = window_data->win;
-	backend->device_context = window_data->device_context;
-
 	cursoryx_error_ok(error);
 }
 
@@ -98,7 +95,23 @@ void cursoryx_win_set(
 			return;
 		}
 
-		DWORD ok = SetClassLongW(backend->win, GCLP_HCURSOR, win_cursor.integer);
+		HWND win = GetActiveWindow();
+
+		if (win == NULL)
+		{
+			cursoryx_error_throw(
+				context,
+				error,
+				CURSORYX_ERROR_WIN_ACTIVE_GET);
+
+			return;
+		}
+
+		DWORD ok =
+			SetClassLongPtrW(
+				win,
+				GCLP_HCURSOR,
+				win_cursor.integer);
 
 		if (ok == 0)
 		{
@@ -124,9 +137,21 @@ void cursoryx_win_custom_set(
 	struct win_backend* backend = context->backend_data;
 	struct win_custom_backend* custom_backend = custom->backend;
 
+	HWND win = GetActiveWindow();
+
+	if (win == NULL)
+	{
+		cursoryx_error_throw(
+			context,
+			error,
+			CURSORYX_ERROR_WIN_ACTIVE_GET);
+
+		return;
+	}
+
 	DWORD ok =
-		SetClassLongW(
-			backend->win,
+		SetClassLongPtrW(
+			win,
 			GCLP_HCURSOR,
 			custom_backend->cursor.integer);
 

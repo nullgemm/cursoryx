@@ -68,6 +68,8 @@ void cursoryx_error_init(
 		"could not create win32 cursor";
 	log[CURSORYX_ERROR_WIN_OBJECT_DELETE] =
 		"could not delete win32 object";
+	log[CURSORYX_ERROR_WIN_ACTIVE_GET] =
+		"couldn't get a win32 active window handle";
 
 	log[CURSORYX_ERROR_MACOS_OBJ_NIL] =
 		"could not get a valid objective-c object";

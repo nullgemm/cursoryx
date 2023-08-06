@@ -8,8 +8,7 @@
 
 struct win_backend
 {
-	HWND win;
-	HDC device_context;
+	void* data;
 };
 
 union win_cursor
