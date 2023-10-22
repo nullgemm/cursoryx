@@ -31,6 +31,13 @@ void cursoryx_error_init(
 	log[CURSORYX_ERROR_FD] =
 		"invalid file descriptor";
 
+	log[CURSORYX_ERROR_POSIX_MMAP] =
+		"could not mmap shared Wayland memory";
+	log[CURSORYX_ERROR_POSIX_MUNMAP] =
+		"could not munmap shared Wayland memory";
+	log[CURSORYX_ERROR_POSIX_MEMCPY] =
+		"could not memcpy into shared Wayland memory";
+
 	log[CURSORYX_ERROR_X11_CURSOR_CREATE] =
 		"could not create X11 cursor";
 	log[CURSORYX_ERROR_X11_CURSOR_DESTROY] =
@@ -56,6 +63,9 @@ void cursoryx_error_init(
 	log[CURSORYX_ERROR_X11_CUSTOM_DESTROY] =
 		"could not destroy custom X11 cursor";
 
+	log[CURSORYX_ERROR_MACOS_OBJ_NIL] =
+		"could not get a valid objective-c object";
+
 	log[CURSORYX_ERROR_WIN_CURSOR_LOAD] =
 		"could not load win32 cursor";
 	log[CURSORYX_ERROR_WIN_BMP_MASK_CREATE] =
@@ -69,8 +79,32 @@ void cursoryx_error_init(
 	log[CURSORYX_ERROR_WIN_ACTIVE_GET] =
 		"couldn't get a win32 active window handle";
 
-	log[CURSORYX_ERROR_MACOS_OBJ_NIL] =
-		"could not get a valid objective-c object";
+	log[CURSORYX_ERROR_WAYLAND_REQUEST] =
+		"could not perform Wayland request";
+	log[CURSORYX_ERROR_WAYLAND_LISTENER_ADD] =
+		"could not add Wayland listener";
+	log[CURSORYX_ERROR_WAYLAND_SURFACE_CREATE] =
+		"could not create Wayland surface";
+	log[CURSORYX_ERROR_WAYLAND_THEME_LOAD] =
+		"could not load Wayland cursor theme";
+	log[CURSORYX_ERROR_WAYLAND_CURSOR_GET] =
+		"could not get Wayland cursor";
+	log[CURSORYX_ERROR_WAYLAND_POINTER_UNAVAILABLE] =
+		"could not register Wayland mouse pointer";
+	log[CURSORYX_ERROR_WAYLAND_THEME_UNAVAILABLE] =
+		"could not register Wayland cursor theme";
+	log[CURSORYX_ERROR_WAYLAND_SURFACE_UNAVAILABLE] =
+		"could not register Wayland surface";
+	log[CURSORYX_ERROR_WAYLAND_CURSOR_INVALID] =
+		"got an invalid Wayland cursor";
+	log[CURSORYX_ERROR_WAYLAND_BUFFER_CREATE] =
+		"could not create Wayland buffer";
+	log[CURSORYX_ERROR_WAYLAND_SURFACE_FRAME_GET] =
+		"could not get Wayland surface frame";
+	log[CURSORYX_ERROR_WAYLAND_TIME_GET] =
+		"could not get time";
+	log[CURSORYX_ERROR_WAYLAND_BUFFER_GET] =
+		"could not get Wayland buffer from cursor";
 #endif
 }
 
