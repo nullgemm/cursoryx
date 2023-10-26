@@ -1,7 +1,7 @@
 # Cursoryx
 Cursoryx is a portable cursor setting library for X11, Wayland, Windows
 and macOS. It is lightweight and self-contained, making it suitable for use
-with custom windowing code or low-level abstractions libraries like
+with custom windowing code or low-level abstraction libraries like
 [Globox](https://github.com/nullgemm/globox).
 
 ## Available cursors
