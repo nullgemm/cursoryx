@@ -1,0 +1,9 @@
+cursoryx_x11_init
+cursoryx_x11_start
+cursoryx_x11_set
+cursoryx_x11_custom_set
+cursoryx_x11_custom_create
+cursoryx_x11_custom_destroy
+cursoryx_x11_stop
+cursoryx_x11_clean
+cursoryx_prepare_init_x11

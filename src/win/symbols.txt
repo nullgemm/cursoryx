@@ -1,0 +1,9 @@
+cursoryx_win_init
+cursoryx_win_start
+cursoryx_win_set
+cursoryx_win_custom_set
+cursoryx_win_custom_create
+cursoryx_win_custom_destroy
+cursoryx_win_stop
+cursoryx_win_clean
+cursoryx_prepare_init_win

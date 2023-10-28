@@ -1,0 +1,9 @@
+cursoryx_appkit_init
+cursoryx_appkit_start
+cursoryx_appkit_set
+cursoryx_appkit_custom_set
+cursoryx_appkit_custom_create
+cursoryx_appkit_custom_destroy
+cursoryx_appkit_stop
+cursoryx_appkit_clean
+cursoryx_prepare_init_appkit

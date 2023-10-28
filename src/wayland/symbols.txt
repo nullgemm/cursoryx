@@ -1,0 +1,9 @@
+cursoryx_wayland_init
+cursoryx_wayland_start
+cursoryx_wayland_set
+cursoryx_wayland_custom_set
+cursoryx_wayland_custom_create
+cursoryx_wayland_custom_destroy
+cursoryx_wayland_stop
+cursoryx_wayland_clean
+cursoryx_prepare_init_wayland
