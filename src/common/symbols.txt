@@ -12,3 +12,4 @@ cursoryx_error_get_code
 cursoryx_error_get_file
 cursoryx_error_get_line
 cursoryx_error_ok
+cursoryx_error_throw_extra
