@@ -165,7 +165,7 @@ echo "name = $name"; \
 echo "cc = $cc"; \
 echo "ld = $ld"; \
 echo "ar = $ar"; \
-echo "objconv = $objconv"; \
+echo "objcopy= $objcopy"; \
 echo ""; \
 } > "$output/$ninja_file"
 
@@ -188,7 +188,7 @@ echo -e "\n" >> "$output/$ninja_file"
 { \
 echo "# rules"; \
 echo "rule global"; \
-echo "    command = \$objcopy -D --globalize-symbols=src/win/symbols.txt \$in \$out"; \
+echo "    command = \$objcopy -D --globalize-symbols=src/appkit/symbols.txt \$in \$out"; \
 echo "    description = globalize \$out"; \
 echo ""; \
 } >> "$output/$ninja_file"

@@ -1,0 +1,14 @@
+cursoryx_init
+cursoryx_start
+cursoryx_set
+cursoryx_custom_set
+cursoryx_custom_create
+cursoryx_custom_destroy
+cursoryx_stop
+cursoryx_clean
+cursoryx_error_log
+cursoryx_error_get_msg
+cursoryx_error_get_code
+cursoryx_error_get_file
+cursoryx_error_get_line
+cursoryx_error_ok
