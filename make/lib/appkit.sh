@@ -165,7 +165,7 @@ echo "name = $name"; \
 echo "cc = $cc"; \
 echo "ld = $ld"; \
 echo "ar = $ar"; \
-echo "objcopy= $objcopy"; \
+echo "objcopy = $objcopy"; \
 echo ""; \
 } > "$output/$ninja_file"
 
