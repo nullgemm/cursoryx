@@ -25,7 +25,7 @@ folder_include="\$folder_cursoryx/include"
 name="cursoryx_win"
 cc="x86_64-w64-mingw32-gcc"
 ld="x86_64-w64-mingw32-ld"
-ar="x86_64-w64-mingw32-ar"
+ar="x86_64-w64-mingw32-gcc-ar"
 objcopy="x86_64-w64-mingw32-objcopy"
 
 # compiler flags
