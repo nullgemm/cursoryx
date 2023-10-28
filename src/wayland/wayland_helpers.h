@@ -9,7 +9,7 @@
 #include <wayland-client.h>
 
 // registry handler
-void cursoryx_wayland_helpers_registry_handler(
+void wayland_helpers_registry_handler(
 	void* data,
 	struct wl_registry* registry,
 	uint32_t name,
@@ -17,24 +17,24 @@ void cursoryx_wayland_helpers_registry_handler(
 	uint32_t version);
 
 // capabilities handler
-void cursoryx_wayland_helpers_capabilities_handler(
+void wayland_helpers_capabilities_handler(
 	void* data,
 	struct wl_seat* seat,
 	uint32_t capabilities);
 
 // cursor animation
-void cursoryx_wayland_helpers_animate(
+void wayland_helpers_animate(
 	struct cursoryx* context,
 	struct cursoryx_error_info* error);
 
 // frame callback
-void cursoryx_wayland_helpers_surface_frame_done(
+void wayland_helpers_surface_frame_done(
 	void* data,
 	struct wl_callback* callback,
 	uint32_t time);
 
 // buffer creation
-uint32_t* cursoryx_wayland_helpers_buffer_create(
+uint32_t* wayland_helpers_buffer_create(
 	struct cursoryx* context,
 	struct wayland_custom_backend* custom_backend,
 	unsigned width,
@@ -42,7 +42,7 @@ uint32_t* cursoryx_wayland_helpers_buffer_create(
 	struct cursoryx_error_info* error);
 
 // buffer destruction
-void cursoryx_wayland_helpers_buffer_destroy(
+void wayland_helpers_buffer_destroy(
 	struct cursoryx* context,
 	struct wayland_custom_backend* custom_backend,
 	struct cursoryx_error_info* error);

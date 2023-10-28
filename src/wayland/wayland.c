@@ -51,7 +51,7 @@ void cursoryx_wayland_init(
 	// frame callback listener
 	struct wl_callback_listener listener_surface_frame =
 	{
-		.done = cursoryx_wayland_helpers_surface_frame_done,
+		.done = wayland_helpers_surface_frame_done,
 	};  
 
 	backend->listener_surface_frame = listener_surface_frame;
@@ -74,12 +74,12 @@ void cursoryx_wayland_start(
 
 	window_data->add_registry_handler(
 		window_data->add_registry_handler_data,
-		cursoryx_wayland_helpers_registry_handler,
+		wayland_helpers_registry_handler,
 		context);
 
 	window_data->add_capabilities_handler(
 		window_data->add_capabilities_handler_data,
-		cursoryx_wayland_helpers_capabilities_handler,
+		wayland_helpers_capabilities_handler,
 		context);
 
 	cursoryx_error_ok(error);
@@ -188,7 +188,7 @@ void cursoryx_wayland_set(
 	}
 
 	// animate cursor
-	cursoryx_wayland_helpers_animate(context, error);
+	wayland_helpers_animate(context, error);
 
 	// error always set
 }
@@ -249,7 +249,7 @@ struct cursoryx_custom* cursoryx_wayland_custom_create(
 
 	// create buffer
 	custom_backend->argb =
-		cursoryx_wayland_helpers_buffer_create(
+		wayland_helpers_buffer_create(
 			context,
 			custom_backend,
 			config->width,
@@ -322,7 +322,7 @@ void cursoryx_wayland_custom_destroy(
 	}
 
 	// free Wayland resources
-	cursoryx_wayland_helpers_buffer_destroy(context, custom_backend, error);
+	wayland_helpers_buffer_destroy(context, custom_backend, error);
 	wl_buffer_destroy(custom_backend->buffer);
 
 	// free allocations
@@ -377,7 +377,7 @@ void cursoryx_wayland_clean(
 		custom_backend = custom->backend;
 		next = custom->next;
 
-		cursoryx_wayland_helpers_buffer_destroy(context, custom_backend, error);
+		wayland_helpers_buffer_destroy(context, custom_backend, error);
 		wl_buffer_destroy(custom_backend->buffer);
 		free(custom_backend);
 		free(custom);
