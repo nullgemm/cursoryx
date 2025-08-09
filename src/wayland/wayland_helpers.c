@@ -19,7 +19,7 @@
 // registry handler
 void wayland_helpers_registry_handler(
 	void* data,
-	struct wl_registry* registry,
+	void* registry,
 	uint32_t name,
 	const char* interface,
 	uint32_t version)
@@ -115,7 +115,7 @@ void wayland_helpers_registry_handler(
 // capabilities handler
 void wayland_helpers_capabilities_handler(
 	void* data,
-	struct wl_seat* seat,
+	void* seat,
 	uint32_t capabilities)
 {
 	struct cursoryx* context = data;
