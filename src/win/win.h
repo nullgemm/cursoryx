@@ -5,6 +5,7 @@
 #include "common/cursoryx_error.h"
 
 #include <stdbool.h>
+#include <windows.h>
 
 struct win_backend
 {

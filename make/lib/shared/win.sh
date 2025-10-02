@@ -13,21 +13,20 @@ folder_library="$folder_cursoryx/lib/cursoryx"
 mkdir -p "$folder_objects"
 
 # list link flags (order matters)
-link+=("-lwayland-client")
-link+=("-lwayland-cursor")
-link+=("-lxkbcommon")
-link+=("-lpthread")
+link+=("-lshcore")
+link+=("-lgdi32")
+link+=("-ldwmapi")
 
 # list objs (order matters)
-obj+=("$folder_objects/cursoryx_wayland.o")
-obj+=("$folder_objects/cursoryx_elf.o")
+obj+=("$folder_objects/cursoryx_win.o")
+obj+=("$folder_objects/cursoryx_pe.o")
 
 # parse soname
-soname="$folder_library/wayland/cursoryx_wayland.so"
+soname="$folder_library/win/cursoryx_win.dll"
 
 # extract objects from static archives
-ar --output "$folder_objects" -x "$folder_library/wayland/cursoryx_wayland.a"
-ar --output "$folder_objects" -x "$folder_library/cursoryx_elf.a"
+ar --output "$folder_objects" -x "$folder_library/win/cursoryx_win.a"
+ar --output "$folder_objects" -x "$folder_library/cursoryx_pe.a"
 
 # build shared object
-gcc -shared -o $soname "${obj[@]}" "${link[@]}"
+x86_64-w64-mingw32-gcc -shared -o $soname "${obj[@]}" "${link[@]}"

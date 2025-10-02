@@ -3,8 +3,6 @@
 
 #include "cursoryx.h"
 
-#include <windows.h>
-
 struct cursoryx_win_data
 {
 	void* data;
