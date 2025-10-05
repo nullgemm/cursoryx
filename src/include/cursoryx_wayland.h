@@ -31,7 +31,9 @@ struct cursoryx_wayland_data
 	void* add_registry_handler_data;
 };
 
+#if !defined(CURSORYX_SHARED)
 void cursoryx_prepare_init_wayland(
 	struct cursoryx_config_backend* config);
+#endif
 
 #endif

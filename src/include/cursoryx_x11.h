@@ -12,7 +12,9 @@ struct cursoryx_x11_data
 	xcb_screen_t* screen;
 };
 
+#if !defined(CURSORYX_SHARED)
 void cursoryx_prepare_init_x11(
 	struct cursoryx_config_backend* config);
+#endif
 
 #endif
